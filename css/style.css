@@ -520,3 +520,11 @@ h6,
     color: var(--primary);
 }
 
+.proimabord{
+    border: 1px solid var(--secondary)
+}
+
+.band_logo{
+    width: 100%;
+    height: 100%;
+}
