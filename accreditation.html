@@ -108,28 +108,28 @@
     <div class="container-xxl py-5">
         <div class="container d-grid gap-5">
             <div class="row g-10 align-items-center justify-content-center">
-                <div class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <img class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_quality_management.jpg">
+                <div role="button" onclick="viewCertificate('img/pictures/ISO_quality_management.jpg')" class="col-lg-3 col-md-5 wow fadeInUp " data-wow-delay="0.1s">
+                    <img alt="ISO certificate for quality management"  class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_quality_management.jpg">
                 </div>
-                <div class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
+                <div role="button" onclick="viewCertificate('img/pictures/ISO_quality_management.jpg')" class="col-lg-6 col-md-7 wow fadeInUp .pe-auto" data-wow-delay="0.3s">
                     <h1 class="display-3 text-primary mb-0">ISO 9001:2015</h1>
                     <h1 class="display-6 mb-4">Quality Management System</h1>
                 </div>
             </div>
             <div class="row g-10 align-items-center justify-content-center">
-                <div class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <img class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_occupation_health_safty_management.jpg">
+                <div role="button" onclick="viewCertificate('img/pictures/ISO_occupation_health_safty_management.jpg')" class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <img alt="ISO certificate for Occupational Health & Safety Management System" class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_occupation_health_safty_management.jpg">
                 </div>
-                <div class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
+                <div role="button" onclick="viewCertificate('img/pictures/img/pictures/ISO_occupation_health_safty_management.jpg')" class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
                     <h1 class="display-3 text-primary mb-0">ISO 45001:2018</h1>
                     <h1 class="display-6 mb-4">Occupational Health & Safety Management System</h1>
                 </div>
             </div>
             <div class="row g-10 align-items-center justify-content-center">
-                <div class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <img class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_env_management.jpg">
+                <div role="button" onclick="viewCertificate('img/pictures/ISO_env_management.jpg')" class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <img alt="ISO certificate for Environmental Management System" class="img-fluid rounded" data-wow-delay="0.1s" src="img/pictures/ISO_env_management.jpg">
                 </div>
-                <div class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
+                <div role="button" onclick="viewCertificate('img/pictures/ISO_env_management.jpg')" class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
                     <h1 class="display-3 text-primary mb-0">ISO 14001:2015</h1>
                     <h1 class="display-6 mb-4">Environmental Management System</h1>
                 </div>
@@ -194,6 +194,74 @@
 </div>
 <!-- Copyright End -->
 
+<div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="emptythumbnalil()"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Project details will be populated dynamically here -->
+                <div id="model-body-div" >
+                <div id="imageContainer" class="d-flex justify-content-center align-items-center py-4">
+                    <img id="certificateImage" class="img-fluid" src="" alt="Project Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    /* CSS for thumbnail container */
+    #model-body-div{
+        display: flex;
+        align-items: center;
+    }
+
+    #imageContainer {
+        width: 80%;
+        margin: 0 auto; /* Center the container horizontally */
+        position: relative; /* Position the buttons relative to this container */
+        padding-bottom: 15px;
+    }
+
+    #imageContainer button {
+        position: absolute; /* Position the buttons absolutely */
+        top: 50%; /* Align vertically at the middle */
+        transform: translateY(-50%); /* Center vertically */
+        background: transparent; /* Transparent background */
+        border: none; /* Remove border */
+        outline: none; /* Remove outline */
+        cursor: pointer; /* Add cursor pointer */
+        color: white; /* Button text color */
+        font-size: 2rem; /* Button icon size */
+    }
+
+    #imageContainer button:first-child {
+        left: 0; /* Align first button to the left */
+    }
+
+    #imageContainer button:last-child {
+        right: 0; /* Align last button to the right */
+    }
+    @media (max-width: 576px) {
+        /* Adjust the favicon size for smaller screens */
+        #imageContainer button i {
+            font-size: 15px;
+        }
+    }
+    #imageContainer {
+        width: 100%;
+    }
+ 
+@media (max-width: 1050px) {
+    #model-body-div{
+    flex-direction: column;
+}
+}    
+</style>
+
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -211,6 +279,18 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        // Array to store image sources
+        var currentImageIndex = 0;
+           function viewCertificate (imageSrc) {          
+               // Display the image
+               $('#certificateModal .modal-body #certificateImage').attr('src', imageSrc);
+       
+               // Show the modal
+               $('#certificateModal').modal('show');
+           }
+       </script>
 </body>
 
 </html>
