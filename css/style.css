@@ -199,7 +199,7 @@ h6,
 }
 
 .page-header {
-    /* background: linear-gradient(rgba(15, 66, 41, .6), rgba(15, 66, 41, .6)), url(../img/pictures/Landscaped_garden_w850_h425.jpg) center center no-repeat; */
+    /* background: linear-gradient(rgba(15, 66, 41, .6), rgba(15, 66, 41, .6)), url(..asserts/img/Landscaped_garden_w850_h425.jpg) center center no-repeat; */
     background: #174229;
     background-size: cover;
 }
