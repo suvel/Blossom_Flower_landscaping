@@ -536,3 +536,18 @@ h6,
     width: 100%;
     height: 100%;
 }
+
+.whatsup_contact_us{
+    animation: effect 2s linear infinite;
+}
+
+
+@keyframes effect {
+    0% {
+        color: white;
+    }
+
+    100% {
+        color: yellow;
+    }
+}
