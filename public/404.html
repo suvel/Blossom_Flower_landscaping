@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Blossom Flowers Landscaping and Nursery</title>
+    <script>
+        // GitHub Pages has no server-side routing, so a deep link (e.g. /about) or a
+        // page refresh on a non-root route 404s here. Redirect back to the SPA root
+        // with the intended path encoded in the query string, and App.jsx's redirect
+        // handler restores it via history.replaceState before React Router sees it.
+        var path = window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace('/?redirect=' + encodeURIComponent(path));
+    </script>
+</head>
+
+<body></body>
+
+</html>
