@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Featured on the Etihad Rail Project",
+        "description": "Landscaping & green spaces at Mohamed Bin Zayed City Station, Abu Dhabi.",
+        "link": { "text": "View project", "href": "project.html" },
+        "media": [
+            { "type": "image", "src": "asserts/work_promotion/p2.jpeg", "alt": "Blossom Flowers Landscaping - Etihad Rail Project partnership" },
+            { "type": "image", "src": "asserts/work_promotion/p4.jpeg", "alt": "Blossom Flowers Landscaping - Etihad Rail Project partnership" },
+            { "type": "video", "src": "asserts/video/etihad_rail_proj/1.mp4" },
+            { "type": "video", "src": "asserts/video/etihad_rail_proj/2.mp4" },
+            { "type": "video", "src": "asserts/video/etihad_rail_proj/3.mp4" },
+            { "type": "image", "src": "asserts/work_promotion/p3.jpeg", "alt": "Blossom Flowers Landscaping - Etihad Rail Project partnership" }
+        ]
+    },
+    {
+        "title": "Project One",
+        "description": "Short description of the project: location, scope of work and what we delivered.",
+        "media": [
+            { "type": "video", "src": "asserts/video/file_example_MP4_480_1_5MG.mp4" },
+            { "type": "video", "src": "asserts/video/130414-746934884.mp4" },
+            { "type": "video", "src": "asserts/video/34965-405203349.mp4" },
+            { "type": "image", "src": "asserts/img/p1.png", "alt": "Project One photo" },
+            { "type": "image", "src": "asserts/img/p1_1.png", "alt": "Project One photo" }
+        ]
+    }
+]

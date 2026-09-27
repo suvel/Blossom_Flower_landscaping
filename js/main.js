@@ -75,24 +75,79 @@
     });
 
 
+    // Project Highlight: rendered from data/project-highlights.json
+    var make = function (tag, className, attrs) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        for (var key in attrs || {}) node.setAttribute(key, attrs[key]);
+        return node;
+    };
+    var navButton = function (dir, label, icon) {
+        var btn = make('button', 'btn btn-primary btn-lg-square rounded-circle video-nav video-' + dir, { type: 'button', 'aria-label': label });
+        btn.appendChild(make('i', 'bi ' + icon));
+        return btn;
+    };
+    var mediaCard = function (item) {
+        var card = make('button', 'video-card rounded overflow-hidden shadow', { type: 'button' });
+        if (item.type === 'video') {
+            card.setAttribute('aria-label', 'Play video');
+            var video = make('video', null, { src: item.src + '#t=0.1', preload: 'metadata' });
+            video.muted = true;
+            video.playsInline = true;
+            card.appendChild(video);
+            var play = make('span', 'video-play');
+            play.appendChild(make('i', 'bi bi-play-fill'));
+            card.appendChild(play);
+        } else {
+            card.setAttribute('aria-label', 'View photo');
+            card.appendChild(make('img', null, { src: item.src, alt: item.alt || '', loading: 'lazy' }));
+        }
+        return card;
+    };
+    var projectBlock = function (project) {
+        var block = make('div', 'project-highlight mb-5 wow fadeInUp', { 'data-wow-delay': '0.1s' });
+        var title = make('h3', 'mb-2');
+        title.textContent = project.title;
+        var desc = make('p', 'mb-4');
+        desc.textContent = project.description || '';
+        if (project.link) {
+            var link = make('a', null, { href: project.link.href });
+            link.textContent = project.link.text;
+            desc.append(' ', link);
+        }
+        var wrap = make('div', 'position-relative');
+        var scroller = make('div', 'video-scroller');
+        (project.media || []).forEach(function (item) { scroller.appendChild(mediaCard(item)); });
+        wrap.append(scroller, navButton('prev', 'Previous media', 'bi-chevron-left'), navButton('next', 'Next media', 'bi-chevron-right'));
+        block.append(title, desc, wrap);
+        return block;
+    };
+    var highlights = document.getElementById('project-highlights');
+    if (highlights) {
+        fetch('data/project-highlights.json')
+            .then(function (res) { return res.json(); })
+            .then(function (projects) { highlights.replaceChildren.apply(highlights, projects.map(projectBlock)); })
+            .catch(function (err) { console.error('Could not load project highlights', err); });
+    }
+
     // Video scroller
     var scrollVideos = function (scroller, direction) {
         var card = scroller.querySelector('.video-card');
+        if (!card) return;
         var gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
         scroller.scrollBy({ left: direction * (card.offsetWidth + gap) });
     };
-    $('.video-scroller').each(function () {
-        var scroller = this;
-        var wrap = $(scroller).parent();
-        wrap.find('.video-prev').on('click', function () { scrollVideos(scroller, -1); });
-        wrap.find('.video-next').on('click', function () { scrollVideos(scroller, 1); });
+    // Delegated, since the scrollers are rendered after page load
+    $(document).on('click', '.video-prev, .video-next', function () {
+        var scroller = $(this).closest('.position-relative').find('.video-scroller')[0];
+        scrollVideos(scroller, $(this).hasClass('video-prev') ? -1 : 1);
     });
 
     // Clicking a thumbnail opens it enlarged in the media modal
     var mediaModal = document.getElementById('media-modal');
     if (mediaModal) {
         var mediaBody = mediaModal.querySelector('.media-modal-body');
-        $('.video-card').on('click', function () {
+        $(document).on('click', '.video-card', function () {
             var thumb = this.querySelector('video, img');
             var src = thumb.getAttribute('src').split('#')[0];
             var el;

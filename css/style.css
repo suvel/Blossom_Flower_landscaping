@@ -198,25 +198,6 @@ h6,
     }
 }
 
-#promo-carousel .carousel-item {
-    position: relative;
-    min-height: 350px;
-}
-
-#promo-carousel .carousel-item img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: #fff;
-}
-
-@media (min-width: 769px) {
-    #promo-carousel .carousel-item {
-        min-height: 550px;
-    }
-}
-
 
 /*** Video Scroller ***/
 .video-scroller {
@@ -257,7 +238,7 @@ h6,
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
     transition: transform .4s;
 }
 
@@ -342,12 +323,6 @@ h6,
 
 
 /*** Top Feature ***/
-.feature_reco {
-    border: 5px solid green;
-    border-left: none;
-    border-right: none;
-}
-
 @media (min-width: 991.98px) {
     .top-feature {
         position: relative;
