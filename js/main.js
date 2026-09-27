@@ -107,7 +107,7 @@
             }
             el.src = src;
             mediaBody.replaceChildren(el);
-            bootstrap.Modal.getOrCreateInstance(mediaModal).show();
+            (bootstrap.Modal.getInstance(mediaModal) || new bootstrap.Modal(mediaModal)).show();
         });
         // Removing the video stops playback; just hiding it would keep playing
         mediaModal.addEventListener('hidden.bs.modal', function () {
