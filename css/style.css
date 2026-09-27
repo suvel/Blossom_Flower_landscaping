@@ -217,6 +217,113 @@ h6,
     }
 }
 
+
+/*** Video Scroller ***/
+.video-scroller {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.video-scroller::-webkit-scrollbar {
+    height: 6px;
+}
+
+.video-scroller::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.video-card {
+    position: relative;
+    flex: 0 0 500px;
+    width: 500px;
+    height: 300px;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    background: #000;
+    scroll-snap-align: start;
+    cursor: pointer;
+}
+
+.video-card video,
+.video-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s;
+}
+
+.video-card:hover video,
+.video-card:hover img {
+    transform: scale(1.05);
+}
+
+.video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 2rem;
+    transform: translate(-50%, -50%);
+    transition: transform .3s;
+}
+
+.video-card:hover .video-play {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.media-modal-body video,
+.media-modal-body img {
+    display: block;
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.video-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.video-prev {
+    left: 0;
+}
+
+.video-next {
+    right: 0;
+}
+
+@media (max-width: 575.98px) {
+    .video-card {
+        flex-basis: 85%;
+        height: auto;
+        aspect-ratio: 5 / 3;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .video-nav {
+        display: none;
+    }
+}
+
 .page-header {
     /* background: linear-gradient(rgba(15, 66, 41, .6), rgba(15, 66, 41, .6)), url(..asserts/img/Landscaped_garden_w850_h425.jpg) center center no-repeat; */
     background: #174229;

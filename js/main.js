@@ -74,6 +74,46 @@
         ]
     });
 
-    
+
+    // Video scroller
+    var scrollVideos = function (scroller, direction) {
+        var card = scroller.querySelector('.video-card');
+        var gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
+        scroller.scrollBy({ left: direction * (card.offsetWidth + gap) });
+    };
+    $('.video-scroller').each(function () {
+        var scroller = this;
+        var wrap = $(scroller).parent();
+        wrap.find('.video-prev').on('click', function () { scrollVideos(scroller, -1); });
+        wrap.find('.video-next').on('click', function () { scrollVideos(scroller, 1); });
+    });
+
+    // Clicking a thumbnail opens it enlarged in the media modal
+    var mediaModal = document.getElementById('media-modal');
+    if (mediaModal) {
+        var mediaBody = mediaModal.querySelector('.media-modal-body');
+        $('.video-card').on('click', function () {
+            var thumb = this.querySelector('video, img');
+            var src = thumb.getAttribute('src').split('#')[0];
+            var el;
+            if (thumb.tagName === 'VIDEO') {
+                el = document.createElement('video');
+                el.controls = true;
+                el.autoplay = true;
+                el.playsInline = true;
+            } else {
+                el = document.createElement('img');
+                el.alt = thumb.alt;
+            }
+            el.src = src;
+            mediaBody.replaceChildren(el);
+            bootstrap.Modal.getOrCreateInstance(mediaModal).show();
+        });
+        // Removing the video stops playback; just hiding it would keep playing
+        mediaModal.addEventListener('hidden.bs.modal', function () {
+            mediaBody.replaceChildren();
+        });
+    }
+
 })(jQuery);
 
