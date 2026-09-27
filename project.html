@@ -321,6 +321,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-6  first wow fadeInUp"  data-wow-delay="0.1s" onclick="showProjectDetails('pr_14')">
+                    <div class="portfolio-inner rounded ">
+                        <img class="img-fluid" src="asserts/img/MBZ_Station/1.jpeg" alt="MBZ Station">
+                        <div class="portfolio-text">
+                            <h4 class="text-white mb-4 p-5">MBZ Station – Landscaping, Shabiya 12, Mohamed Bin Zayed City</h4>
+                            <div class="d-flex">
+
+                                <a class="btn btn-lg-square rounded-circle mx-2" ><i class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
         </div>
@@ -395,6 +407,7 @@
                 <div id="imageContainer" class="d-flex justify-content-center align-items-center py-4">
                     <button class="btn btn-primary" onclick="showPreviousImage()"><i class="fa fa-chevron-left"></i></button>
                     <img id="projectImage" class="img-fluid" src="" alt="Project Image">
+                    <video id="projectVideo" class="img-fluid" controls playsinline style="display:none"></video>
                     <button class="btn btn-primary" onclick="showNextImage()"><i class="fa fa-chevron-right"></i></button>
                 </div>
                 <div >
@@ -431,7 +444,8 @@
     border-radius: 10%;
 }
 
-.thumbnail-container img {
+.thumbnail-container img,
+.thumbnail-container video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -680,6 +694,18 @@
     'img/etihad-rail-4.jpeg'
     ]
 },
+"pr_14":{
+    'name': 'MBZ Station – Located in Shabiya 12, connecting residents to central Abu Dhabi and other emirates',
+    'client': 'To be updated',
+    'completion':'To be updated',
+    'value':'To be updated',
+    'contact':'To be updated',
+    'number':'To be updated',
+    'images': [
+    'asserts/img/MBZ_Station/1.jpeg',
+    'asserts/video/MBZ_Station/1.mp4'
+    ]
+},
 }
 
  var currentImageIndex = 0;
@@ -697,7 +723,11 @@
 
         details.images.forEach(function(imageSrc, index) {
         var thumbnail = '<div class="thumbnail-container">';
-        thumbnail += '<img src="' + imageSrc + '" alt="Project Image" onclick="showImage(' + index + ')">';
+        if (isVideo(imageSrc)) {
+            thumbnail += '<video src="' + imageSrc + '" muted preload="metadata" onclick="showImage(' + index + ')"></video>';
+        } else {
+            thumbnail += '<img src="' + imageSrc + '" alt="Project Image" onclick="showImage(' + index + ')">';
+        }
         thumbnail += '</div>';
         $('#thumbnailContainer').append(thumbnail);
     });
@@ -714,27 +744,54 @@
         $('#projectModal .modal-body #projectDetails').html(detailsHTML);
 
         // Display the first image
-        $('#projectModal .modal-body #projectImage').attr('src', projectImages[currentImageIndex]);
+        renderMedia(0);
 
         // Show the modal
         $('#projectModal').modal('show');
     }
 
+    function isVideo(src) {
+        return /\.(mp4|webm|ogg)$/i.test(src);
+    }
+
+    // Show the image or video at the given index in the main viewer
+    function renderMedia(index) {
+        currentImageIndex = index;
+        var src = projectImages[index];
+        var video = $('#projectVideo');
+        video[0].pause();
+        if (isVideo(src)) {
+            $('#projectImage').hide();
+            video.attr('src', src).show();
+        } else {
+            video.hide();
+            $('#projectImage').attr('src', src).show();
+        }
+    }
+
+    function showImage(index) {
+        renderMedia(index);
+    }
+
     // Function to show next image
     function showNextImage() {
-        currentImageIndex = (currentImageIndex + 1) % projectImages.length;
-        $('#projectImage').attr('src', projectImages[currentImageIndex]);
+        renderMedia((currentImageIndex + 1) % projectImages.length);
     }
 
     // Function to show previous image
     function showPreviousImage() {
-        currentImageIndex = (currentImageIndex - 1 + projectImages.length) % projectImages.length;
-        $('#projectImage').attr('src', projectImages[currentImageIndex]);
+        renderMedia((currentImageIndex - 1 + projectImages.length) % projectImages.length);
     }
 
     function emptythumbnalil(){
+        var video = $('#projectVideo');
+        video[0].pause();
+        video.removeAttr('src');
         $('#thumbnailContainer').empty();
     }
+
+    // Also clean up when the modal is closed via Esc or backdrop click
+    $('#projectModal').on('hidden.bs.modal', emptythumbnalil);
 </script>
     
         
