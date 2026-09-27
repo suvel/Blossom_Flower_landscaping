@@ -126,7 +126,11 @@
     if (highlights) {
         fetch('data/project-highlights.json')
             .then(function (res) { return res.json(); })
-            .then(function (projects) { highlights.replaceChildren.apply(highlights, projects.map(projectBlock)); })
+            .then(function (projects) {
+                highlights.replaceChildren.apply(highlights, projects.map(projectBlock));
+                // Content above the stats section just grew; re-measure the parallax mirror
+                $(window).trigger('resize.px.parallax');
+            })
             .catch(function (err) { console.error('Could not load project highlights', err); });
     }
 
